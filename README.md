@@ -1,4 +1,4 @@
-# NLP Mini Project 1  Wikipedia Article-Type Classifier (DBpedia-14)
+# NLP Mini Project 1 : Wikipedia Article-Type Classifier (DBpedia-14)
 
 Phase 1 of the semester project (Units 1–4). Corpus option 6: DBpedia-14, six classes
 (Company, Artist, Athlete, Building, Film, WrittenWork).
