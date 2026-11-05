@@ -37,6 +37,12 @@ with `random_state=42`.
 **Google Colab:** upload the whole folder (or at least `src/` and `data/`), open the notebook from
 `notebooks/`, and run `!pip install datasets nltk scikit-learn seaborn` first.
 
+## Live demo
+- **Google Colab (no installation):**
+  [Open Demo_Colab.ipynb in Colab](https://colab.research.google.com/github/arhoformal38-oss/wikipedia-article-classifier/blob/main/notebooks/Demo_Colab.ipynb)
+  → `Runtime → Run all` → type a text in the box under the last cell.
+- **Local:** `python demo.py` from the project folder, then type texts (`q` to quit).
+
 ## Reproducibility
 - Train: 3,000 random articles per class from the official training split (`random_state=42`).
 - Test: all 5,000 official test articles per class; used only for the final evaluation.
