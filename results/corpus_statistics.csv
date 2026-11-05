@@ -1,0 +1,10 @@
+statistic,value
+documents (train),18000.0
+documents (test),30000.0
+classes,6.0
+total raw tokens (train),856936.0
+"vocabulary size, raw lowercase (train)",60711.0
+total tokens after preprocessing (train),529455.0
+vocabulary size after preprocessing (train),56723.0
+avg raw tokens per document,47.6
+avg tokens per document after preprocessing,29.4

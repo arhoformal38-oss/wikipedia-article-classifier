@@ -1,52 +1,45 @@
 # NLP Mini Project 1 : Wikipedia Article-Type Classifier (DBpedia-14)
 
-Phase 1 of the semester project (Units 1–4). Corpus option 6: DBpedia-14, six classes
-(Company, Artist, Athlete, Building, Film, WrittenWork).
+NLP Mini Project 1 (Phase 1) · Corpus Option 6: DBpedia-14 (Wikipedia-based articles)
 
-## Results (official test split, 30,000 unseen articles)
-| Model | Accuracy | Macro F1 |
-|---|---|---|
-| Bag of Words (CountVectorizer) + Logistic Regression | 0.9648 | 0.9648 |
+**Dina Al-Deek · Rand Hussein** — Supervisor: Dr. Ahmad Fahel
 
-Interpolated trigram language model: test perplexity 254.0 (bigram 287.7).
+Read the abstract of a Wikipedia article and predict its type — **Company, Artist, Athlete, Building, Film or
+WrittenWork** — with a classical NLP pipeline: preprocessing, corpus statistics, N-gram analysis, a trigram
+language model, Bag of Words, and Logistic Regression / Multinomial Naive Bayes.
 
-## Folder structure
-```
-NLP_Project1_DBpedia/
-├── notebooks/NLP_Project1_DBpedia.ipynb   main notebook (runs top to bottom)
-├── src/preprocessing.py                   reusable preprocessing function
-├── src/ngram_lm.py                        bigram/trigram language model
-├── data/train.csv, data/test.csv          frozen train/test split (orig_idx = index in official DBpedia-14 split)
-├── models/bow_classifier.joblib           trained CountVectorizer + Logistic Regression pipeline
-├── results/test_metrics.json              final test metrics
-├── results/test_predictions.csv           prediction for every test article
-├── results/figures/                       plots used in the report
-└── report/Project1_Report.docx            short report
-```
+## Results (official DBpedia-14 test set, 30,000 unseen articles)
+
+| Model | Features | Accuracy | Macro Precision | Macro Recall | Macro F1 |
+|---|---|---|---|---|---|
+| **Logistic Regression** (selected) | words + word pairs | **0.9673** | 0.9673 | 0.9673 | 0.9673 |
+| Multinomial Naive Bayes | words + word pairs | 0.9555 | — | — | 0.9554 |
+
+Trigram language model with interpolation: test perplexity **254.0** (bigram 287.7; with add-k: 3,934.5).
+
+## Files
+
+| File | Content |
+|---|---|
+| `notebooks/NLP_Project1_DBpedia.ipynb` | Full code with saved outputs (runs top to bottom) |
+| `Report.pdf` | Project report |
+| `presentation/index.html` | Presentation slides (← → keys, N for speaker notes) |
+| `demo.py`, `notebooks/Demo_Colab.ipynb` | Live demo (command line / Google Colab) |
+| `src/preprocessing.py`, `src/ngram_lm.py` | Reusable preprocessing function and N-gram language model |
+| `data/train.csv`, `data/test.csv` | Frozen split (18,000 / 30,000); `orig_idx` = row in the official DBpedia-14 split |
+| `models/` | Saved vectorizer, classifier, full pipeline and `config.json` |
+| `results/` | Every table (CSV) and figure used in the report |
 
 ## How to run
-```bash
-pip install -r requirements.txt
-cd notebooks
-jupyter notebook NLP_Project1_DBpedia.ipynb
-```
-Run all cells. If `data/train.csv` and `data/test.csv` exist they are reused (frozen split);
-otherwise the notebook downloads DBpedia-14 from Hugging Face (`fancyzhx/dbpedia_14`) and recreates them
-with `random_state=42`.
 
-**Google Colab:** upload the whole folder (or at least `src/` and `data/`), open the notebook from
-`notebooks/`, and run `!pip install datasets nltk scikit-learn seaborn` first.
+1. Open `notebooks/NLP_Project1_DBpedia.ipynb` in Jupyter or Google Colab (`pip install -r requirements.txt`).
+2. Run all cells. If `data/train.csv` and `data/test.csv` exist they are reused; otherwise the notebook downloads
+   DBpedia-14 from Hugging Face (`fancyzhx/dbpedia_14`) and recreates the same split with `random_state=42`.
+3. Live demo: [open Demo_Colab.ipynb in Colab](https://colab.research.google.com/github/arhoformal38-oss/wikipedia-article-classifier/blob/main/notebooks/Demo_Colab.ipynb)
+   → Runtime → Run all, or run `python demo.py` locally.
 
-## Live demo
-- **Google Colab (no installation):**
-  [Open Demo_Colab.ipynb in Colab](https://colab.research.google.com/github/arhoformal38-oss/wikipedia-article-classifier/blob/main/notebooks/Demo_Colab.ipynb)
-  → `Runtime → Run all` → type a text in the box under the last cell.
-- **Local:** `python demo.py` from the project folder, then type texts (`q` to quit).
-
-## Reproducibility
-- Train: 3,000 random articles per class from the official training split (`random_state=42`).
-- Test: all 5,000 official test articles per class; used only for the final evaluation.
-- Classifier selection: 5-fold stratified CV on training data. LM interpolation weights: 10% validation slice of training data.
+**Presentation:** https://arhoformal38-oss.github.io/wikipedia-article-classifier/presentation/
 
 ## Reference
-Zhang, X., Zhao, J., LeCun, Y. (2015). Character-level Convolutional Networks for Text Classification. NeurIPS.
+
+Zhang, X., Zhao, J., and LeCun, Y. (2015). Character-level Convolutional Networks for Text Classification. NeurIPS.

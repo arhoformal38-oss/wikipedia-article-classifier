@@ -1,0 +1,9 @@
+prompt,context used,top-5 next words (probability),greedy continuation
+the film was directed,trigram,"by (0.94), and (0.04), written (0.01), officially (0.01), sri (0.01)",the film was directed by john ford
+he is a professional,trigram,"baseball (0.14), footballer (0.12), american (0.06), football (0.06), rugby (0.04)",he is a professional baseball player
+the company was founded,trigram,"in (0.70), by (0.19), as (0.04), on (0.02), and (0.01)",the company was founded in by the american writer of the same
+the novel was written,trigram,"by (0.62), and (0.13), in (0.09), for (0.04), directed (0.02)",the novel was written by the american writer of the same name
+the building is located,trigram,"in (0.45), at (0.23), on (0.18), along (0.02), near (0.02)",the building is located in the united states
+she is an american,trigram,"professional (0.06), football (0.05), singer (0.05), musician (0.03), author (0.03)",she is an american professional baseball player
+the airline is based,trigram,"on (0.72), in (0.22), upon (0.03), at (0.02), out (0.01)",the airline is based on the national register of historic places in
+the church was built in,trigram,"and (0.33), </s> (0.17), the (0.10), by (0.08), in (0.04)",the church was built in and is a historic home located at the
