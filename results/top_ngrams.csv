@@ -1,0 +1,46 @@
+n,ngram,count
+1-gram,film,6278
+1-gram,born,4624
+1-gram,american,2981
+1-gram,company,2917
+1-gram,first,2448
+1-gram,also,2340
+1-gram,directed,2323
+1-gram,known,2305
+1-gram,published,2122
+1-gram,historic,2017
+1-gram,new,2016
+1-gram,book,1986
+1-gram,based,1936
+1-gram,national,1904
+1-gram,novel,1899
+2-gram,film directed,1454
+2-gram,united state,1020
+2-gram,new york,951
+2-gram,national register,808
+2-gram,historic place,746
+2-gram,register historic,743
+2-gram,also known,666
+2-gram,drama film,496
+2-gram,best known,449
+2-gram,listed national,440
+2-gram,th century,413
+2-gram,first published,394
+2-gram,science fiction,372
+2-gram,comedy film,352
+2-gram,added national,341
+3-gram,register historic place,739
+3-gram,national register historic,738
+3-gram,listed national register,439
+3-gram,added national register,321
+3-gram,drama film directed,318
+3-gram,new york city,225
+3-gram,comedy film directed,190
+3-gram,major league baseball,186
+3-gram,film written directed,169
+3-gram,built added national,147
+3-gram,county new york,133
+3-gram,international film festival,115
+3-gram,historic home located,115
+3-gram,national football league,111
+3-gram,professional ice hockey,111

@@ -1,0 +1,24 @@
+{
+  "model": "Logistic Regression",
+  "features": "CountVectorizer (Bag of Words)",
+  "ngram_range": [
+    1,
+    2
+  ],
+  "min_df": 2,
+  "C": 1.0,
+  "preprocessing": "lowercase, strip accents, remove URLs/digits/punctuation, NLTK tokenize, stop words removed, WordNet lemma",
+  "classes": [
+    "Company",
+    "Artist",
+    "Athlete",
+    "Building",
+    "Film",
+    "WrittenWork"
+  ],
+  "train_size": 18000,
+  "test_size": 30000,
+  "seed": 42,
+  "test_accuracy": 0.9673,
+  "test_macro_f1": 0.9673
+}

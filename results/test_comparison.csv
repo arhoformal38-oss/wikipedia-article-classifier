@@ -1,0 +1,3 @@
+model,features,test_accuracy,test_macro_f1
+Logistic Regression (selected),words + word pairs,0.9673,0.9673
+Naive Bayes,words + word pairs,0.9555,0.9554

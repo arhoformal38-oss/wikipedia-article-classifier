@@ -1,0 +1,13 @@
+model,features,setting,n_features,val_accuracy,val_macro_f1
+Logistic Regression,words + word pairs,C=1.0,57288,0.9672,0.9673
+Logistic Regression,words + word pairs,C=0.5,57288,0.9656,0.9656
+Logistic Regression,words + word pairs,C=0.1,57288,0.965,0.9651
+Logistic Regression,words,C=0.5,20052,0.965,0.9651
+Logistic Regression,words,C=0.1,20052,0.9633,0.9635
+Naive Bayes,words + word pairs,alpha=1.0,57288,0.9633,0.9633
+Naive Bayes,words + word pairs,alpha=0.5,57288,0.9633,0.9633
+Logistic Regression,words,C=1.0,20052,0.9633,0.9634
+Naive Bayes,words + word pairs,alpha=0.1,57288,0.9583,0.9583
+Naive Bayes,words,alpha=1.0,20052,0.9528,0.9528
+Naive Bayes,words,alpha=0.5,20052,0.9478,0.9478
+Naive Bayes,words,alpha=0.1,20052,0.9339,0.9341
