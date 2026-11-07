@@ -6,85 +6,90 @@
 <title>Wikipedia Article Classifier</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b1533; --bg2:#101d45; --card:#16275a; --card2:#1c3170; --line:#2c4386;
-  --ink:#eef2ff; --muted:#a9b6dc; --dim:#7584b3;
-  --blue:#7aa2ff; --cyan:#5ee0d0; --pink:#ff8fb8; --amber:#ffc56b; --red:#ff6b81; --green:#57d69a; --violet:#b69cff;
-  --mono:"JetBrains Mono",Consolas,monospace; --sans:Lexend,"Segoe UI",Arial,sans-serif;
+  --bg:#f5efe3; --paper:#fffdf8; --ink:#1e2a2f; --muted:#5b686d; --dim:#8a8f88; --line:#e2d9c6;
+  --teal:#0f766e; --teal-soft:#d6ece8; --coral:#d9532b; --coral-soft:#f8dccf; --mustard:#e09a1f; --mustard-soft:#f8e6c2;
+  --plum:#6b4a7a; --plum-soft:#e7dcec; --sky:#2c6aa0; --sky-soft:#dbe7f2;
+  --cyan:var(--teal); --pink:var(--coral); --amber:var(--mustard); --blue:var(--sky); --red:var(--coral); --green:var(--teal);
+  --serif:"Fraunces",Georgia,serif; --sans:"Inter","Segoe UI",Arial,sans-serif; --mono:"IBM Plex Mono",Consolas,monospace;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--sans)}
 body{overflow:hidden}
-#deck{height:100vh;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth;
-  background-image:radial-gradient(rgba(122,162,255,.13) 1.3px,transparent 1.4px);background-size:22px 22px}
+#deck{height:100vh;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
 #deck::-webkit-scrollbar{width:0}
 section{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;
-  padding:64px clamp(18px,6vw,96px) 110px;position:relative}
+  padding:70px clamp(18px,6vw,100px) 96px;position:relative;
+  background:linear-gradient(90deg,transparent calc(100% - 10px),var(--accent,var(--teal)) calc(100% - 10px))}
+section:nth-child(3n+2){--accent:var(--coral)} section:nth-child(3n){--accent:var(--mustard)}
 .wrap{max-width:1120px;width:100%;margin:0 auto}
-.eyebrow{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
-.eyebrow i{display:inline-flex;gap:5px}.eyebrow i b{width:9px;height:9px;border-radius:50%;background:var(--pink);opacity:.85}
-.eyebrow i b:nth-child(2){background:var(--amber)}.eyebrow i b:nth-child(3){background:var(--cyan)}.eyebrow i b:nth-child(4){background:var(--blue)}
-h1{font-weight:500;font-size:clamp(34px,5.4vw,64px);line-height:1.08;margin:0 0 18px;letter-spacing:-.01em}
-h2{font-weight:500;font-size:clamp(28px,4vw,48px);line-height:1.12;margin:0 0 18px}
+.eyebrow{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.eyebrow .no{font-family:var(--serif);font-style:italic;font-size:26px;letter-spacing:0;color:var(--accent,var(--teal));text-transform:none}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line);max-width:260px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(36px,5.6vw,68px);line-height:1.05;margin:0 0 18px;letter-spacing:-.015em}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.2vw,50px);line-height:1.1;margin:0 0 18px;letter-spacing:-.01em}
 p.lead{font-size:clamp(16px,1.6vw,20px);color:var(--muted);line-height:1.6;margin:0 0 22px;max-width:760px}
-b,strong{color:var(--ink);font-weight:600}
+b,strong{color:var(--ink);font-weight:650}
 .grid{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
-.card .k{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
-.card .v{font-size:clamp(26px,3vw,38px);font-weight:600}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px;box-shadow:4px 4px 0 var(--line)}
+.card .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.card .v{font-family:var(--serif);font-size:clamp(26px,3vw,38px);font-weight:600}
 .card .s{color:var(--muted);font-size:15px;line-height:1.5;margin-top:4px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:var(--card2);font-size:15px}
-.chip.c1{background:#3a2a66}.chip.c2{background:#5a2440}.chip.c3{background:#14514c}.chip.c4{background:#5a4417}
-.note{border-radius:16px;padding:14px 18px;font-size:16px;line-height:1.55;margin-top:16px}
-.note.green{background:#123f3a;border:1px solid #1d6b5f}.note.pink{background:#3e1f3a;border:1px solid #6f2f63}.note.blue{background:#16285e;border:1px solid var(--line)}
-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:15.5px}
-th{font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;padding:13px 16px;border-bottom:1px solid var(--line)}
-td{padding:11px 16px;border-bottom:1px solid rgba(44,67,134,.55);vertical-align:top}
-tr:last-child td{border-bottom:0}
-tr.sel td{background:#203a85}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:4px;background:var(--sky-soft);color:#1d4b73;font-size:15px;border:1px solid rgba(44,106,160,.18)}
+.chip.c1{background:var(--plum-soft);color:#4e3459;border-color:rgba(107,74,122,.2)}
+.chip.c2{background:var(--coral-soft);color:#8f3216;border-color:rgba(217,83,43,.2)}
+.chip.c3{background:var(--teal-soft);color:#0b5650;border-color:rgba(15,118,110,.2)}
+.chip.c4{background:var(--mustard-soft);color:#7a5308;border-color:rgba(224,154,31,.25)}
+.note{border-radius:6px;padding:13px 18px;font-size:16px;line-height:1.55;margin-top:16px;border-left:5px solid}
+.note.green{background:var(--teal-soft);border-color:var(--teal)}.note.pink{background:var(--coral-soft);border-color:var(--coral)}.note.blue{background:var(--sky-soft);border-color:var(--sky)}
+table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);font-size:15.5px;box-shadow:4px 4px 0 var(--line)}
+th{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper);background:var(--ink);text-align:left;padding:11px 16px}
+td{padding:10px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(odd) td{background:#faf6ee}
+tr.sel td{background:var(--mustard-soft)!important}
 td.r,th.r{text-align:right}
-.tag{font-size:12px;background:var(--blue);color:#0b1533;border-radius:999px;padding:2px 9px;margin-left:8px;font-weight:600}
-code,.mono{font-family:var(--mono);font-size:.92em}
-.steps{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin:8px 0 6px}
-.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 10px;text-align:center;position:relative}
-.step .n{width:34px;height:34px;border-radius:50%;margin:0 auto 10px;display:grid;place-items:center;font-weight:600;background:var(--card2);color:var(--cyan)}
-.step .t{font-size:15px;line-height:1.35}
-.step:not(:last-child)::after{content:"›";position:absolute;right:-11px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:22px}
-.big{font-size:clamp(54px,8vw,96px);font-weight:600;line-height:1;color:var(--cyan)}
-.bar{height:12px;border-radius:999px;background:var(--card2);overflow:hidden;margin-top:8px}
-.bar>span{display:block;height:100%;border-radius:999px}
-.cm{display:grid;grid-template-columns:110px repeat(6,1fr);gap:4px;font-size:13px}
-.cm div{padding:7px 4px;text-align:center;border-radius:7px}
-.cm .h{color:var(--dim);font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;justify-content:center}
+.tag{font-size:11.5px;background:var(--coral);color:#fff;border-radius:3px;padding:2px 8px;margin-left:8px;font-weight:600}
+code,.mono{font-family:var(--mono);font-size:.9em}
+code{background:rgba(30,42,47,.07);padding:1px 5px;border-radius:3px}
+.steps{display:flex;flex-wrap:wrap;gap:0;margin:10px 0 6px;counter-reset:st}
+.step{flex:1 1 120px;background:var(--paper);border:1px solid var(--line);border-right:0;padding:18px 12px 16px;text-align:left;position:relative}
+.step:last-child{border-right:1px solid var(--line)}
+.step .n{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--coral);line-height:1;margin-bottom:8px}
+.step:nth-child(even) .n{color:var(--teal)}
+.step .t{font-size:15.5px;font-weight:600;line-height:1.3}
+.big{font-family:var(--serif);font-size:clamp(58px,8.5vw,104px);font-weight:600;line-height:1;color:var(--teal)}
+.bar{height:10px;border-radius:2px;background:#ece4d3;overflow:hidden;margin-top:7px}
+.bar>span{display:block;height:100%}
+.cm{display:grid;grid-template-columns:110px repeat(6,1fr);gap:3px;font-size:13px}
+.cm div{padding:7px 4px;text-align:center;border-radius:2px}
+.cm .h{color:var(--muted);font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;display:flex;align-items:center;justify-content:center}
 .cm .rh{justify-content:flex-end;padding-right:8px}
-.try{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
-.try textarea{width:100%;min-height:70px;resize:vertical;background:#0d1a42;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:15px var(--sans)}
-.try .out{font-family:var(--mono);font-size:13.5px;line-height:1.6;margin-top:10px;color:var(--muted);word-break:break-word}
-.try .out b{color:var(--amber);font-weight:400}
-.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
-.pill{display:inline-block;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:12px 26px;font-size:clamp(16px,1.7vw,21px);margin:6px 0 22px}
-.arrows{color:var(--pink);letter-spacing:6px;font-size:14px;margin-top:16px}
-/* nav */
-#nav{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:rgba(22,39,90,.92);
-  border:1px solid var(--line);border-radius:999px;padding:8px 10px;backdrop-filter:blur(6px);z-index:10}
-#nav button{background:var(--card2);color:var(--ink);border:0;border-radius:999px;height:38px;min-width:38px;padding:0 14px;font:500 15px var(--sans);cursor:pointer}
-#nav button:hover{background:#29408a}
-#count{font-family:var(--mono);font-size:14px;min-width:64px;text-align:center}
-#nav .hint{color:var(--dim);font-size:12.5px;padding-right:8px}
-#dots{position:fixed;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:9px;z-index:10}
-#dots a{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
-#dots a.on{background:var(--cyan);transform:scale(1.35)}
-#notes{position:fixed;left:50%;bottom:74px;transform:translateX(-50%);width:min(780px,92vw);background:#0f1d4a;border:1px solid var(--blue);
-  border-radius:16px;padding:14px 18px;font-size:15px;line-height:1.6;color:var(--ink);display:none;z-index:11;box-shadow:0 10px 40px rgba(0,0,0,.4)}
-#notes .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--blue);margin-bottom:4px}
+.try{background:var(--ink);color:#f4efe4;border-radius:6px;padding:16px 18px;box-shadow:6px 6px 0 var(--mustard)}
+.try .k{color:#c9c2b2!important}
+.try textarea{width:100%;min-height:72px;resize:vertical;background:#2a383e;color:#fff;border:1px solid #3d4d54;border-radius:4px;padding:10px 12px;font:15px var(--sans)}
+.try .out{font-family:var(--mono);font-size:13.5px;line-height:1.6;margin-top:10px;color:#d6d0c2;word-break:break-word}
+.try .out b{color:var(--mustard);font-weight:500}
+.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center}
+.pill{display:inline-block;background:var(--ink);color:var(--paper);border-radius:3px;padding:10px 20px;font-size:clamp(15px,1.6vw,19px);margin:4px 0 24px}
+.arrows{display:flex;gap:6px;margin-top:20px}.arrows i{width:34px;height:6px;background:var(--coral)}.arrows i:nth-child(2){background:var(--mustard)}.arrows i:nth-child(3){background:var(--teal)}
+/* progress + nav */
+#prog{position:fixed;left:0;top:0;height:5px;background:var(--coral);width:0;z-index:12;transition:width .3s}
+#nav{position:fixed;right:22px;bottom:20px;display:flex;align-items:center;gap:6px;z-index:10}
+#nav button{background:var(--paper);color:var(--ink);border:1px solid var(--ink);border-radius:3px;height:36px;min-width:36px;padding:0 12px;font:600 14px var(--sans);cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
+#nav button:hover{background:var(--mustard-soft)}
+#count{font-family:var(--mono);font-size:13.5px;min-width:70px;text-align:center;color:var(--muted)}
+#nav .hint{display:none}
+#dots{display:none}
+#brand{position:fixed;left:24px;bottom:26px;font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.08em;z-index:10}
+#notes{position:fixed;left:24px;right:24px;bottom:70px;max-width:820px;margin:0 auto;background:var(--ink);color:#f4efe4;border-radius:6px;padding:14px 18px;font-size:15px;line-height:1.6;display:none;z-index:11;box-shadow:6px 6px 0 var(--coral)}
+#notes .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mustard);margin-bottom:4px}
 aside.n{display:none}
 @media (max-width:860px){
-  .g3,.g4{grid-template-columns:1fr 1fr}.g2,.hero{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}
-  .step::after{display:none}#dots{display:none}#nav .hint{display:none}.hero svg{max-height:240px}
-  .cm{font-size:11px;grid-template-columns:78px repeat(6,1fr)}
+  .g3,.g4{grid-template-columns:1fr 1fr}.g2,.hero{grid-template-columns:1fr}.step{flex-basis:45%}
+  #brand{display:none}.hero svg{max-height:240px}.cm{font-size:11px;grid-template-columns:78px repeat(6,1fr)}
 }
 </style>
 </head>
@@ -95,33 +100,33 @@ aside.n{display:none}
 <section>
   <div class="wrap hero">
     <svg viewBox="0 0 420 360" role="img" aria-label="Wikipedia articles being sorted into six labelled boxes">
-      <defs><linearGradient id="pg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#eef2ff"/><stop offset="1" stop-color="#c9d5ff"/></linearGradient></defs>
-      <rect x="30" y="40" width="150" height="190" rx="16" fill="#2a3f86" transform="rotate(-8 105 135)"/>
-      <rect x="52" y="32" width="150" height="190" rx="16" fill="#3b56ad" transform="rotate(-3 127 127)"/>
-      <rect x="74" y="26" width="150" height="190" rx="16" fill="url(#pg)"/>
-      <text x="96" y="70" font-family="Georgia,serif" font-size="30" fill="#16275a">W</text>
-      <rect x="96" y="86" width="104" height="8" rx="4" fill="#8fa3e0"/><rect x="96" y="104" width="86" height="8" rx="4" fill="#b3c1ee"/>
-      <rect x="96" y="122" width="98" height="8" rx="4" fill="#b3c1ee"/><rect x="96" y="140" width="70" height="8" rx="4" fill="#b3c1ee"/>
-      <rect x="96" y="170" width="70" height="26" rx="13" fill="#5ee0d0"/><text x="131" y="188" text-anchor="middle" font-family="Lexend,Arial" font-size="12" font-weight="600" fill="#0b1533">Film?</text>
-      <path d="M232 120 C 268 120, 268 120, 292 120" stroke="#ffc56b" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="2 10"/>
-      <path d="M284 110 l12 10 -12 10" stroke="#ffc56b" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <g font-family="Lexend,Arial" font-size="12.5" font-weight="500" text-anchor="middle">
-        <rect x="304" y="22" width="104" height="38" rx="12" fill="#5a2440"/><text x="356" y="46" fill="#ffd3e2">Company</text>
-        <rect x="304" y="68" width="104" height="38" rx="12" fill="#3a2a66"/><text x="356" y="92" fill="#e2d8ff">Artist</text>
-        <rect x="304" y="114" width="104" height="38" rx="12" fill="#14514c"/><text x="356" y="138" fill="#c9fff6">Athlete</text>
-        <rect x="304" y="160" width="104" height="38" rx="12" fill="#5a4417"/><text x="356" y="184" fill="#ffe9c2">Building</text>
-        <rect x="304" y="206" width="104" height="38" rx="12" fill="#5ee0d0"/><text x="356" y="230" fill="#0b1533" font-weight="700">Film ✓</text>
-        <rect x="304" y="252" width="104" height="38" rx="12" fill="#203a85"/><text x="356" y="276" fill="#dbe5ff">WrittenWork</text>
+      <defs><linearGradient id="pg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fffdf8"/><stop offset="1" stop-color="#f3ecdf"/></linearGradient></defs>
+      <rect x="30" y="40" width="150" height="190" rx="6" fill="#e2d9c6" transform="rotate(-8 105 135)"/>
+      <rect x="52" y="32" width="150" height="190" rx="6" fill="#cfe3df" transform="rotate(-3 127 127)"/>
+      <rect x="74" y="26" width="150" height="190" rx="6" fill="url(#pg)"/>
+      <text x="96" y="70" font-family="Georgia,serif" font-size="30" fill="#1e2a2f">W</text>
+      <rect x="96" y="86" width="104" height="8" rx="4" fill="#9fb6b2"/><rect x="96" y="104" width="86" height="8" rx="4" fill="#d8d0bf"/>
+      <rect x="96" y="122" width="98" height="8" rx="4" fill="#d8d0bf"/><rect x="96" y="140" width="70" height="8" rx="4" fill="#d8d0bf"/>
+      <rect x="96" y="170" width="70" height="26" rx="13" fill="#0f766e"/><text x="131" y="188" text-anchor="middle" font-family="Inter,Arial" font-size="12" font-weight="600" fill="#fffdf8">Film?</text>
+      <path d="M232 120 C 268 120, 268 120, 292 120" stroke="#d9532b" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="2 10"/>
+      <path d="M284 110 l12 10 -12 10" stroke="#d9532b" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <g font-family="Inter,Arial" font-size="12.5" font-weight="500" text-anchor="middle">
+        <rect x="304" y="22" width="104" height="38" rx="4" fill="#f8dccf"/><text x="356" y="46" fill="#8f3216">Company</text>
+        <rect x="304" y="68" width="104" height="38" rx="4" fill="#e7dcec"/><text x="356" y="92" fill="#4e3459">Artist</text>
+        <rect x="304" y="114" width="104" height="38" rx="4" fill="#d6ece8"/><text x="356" y="138" fill="#0b5650">Athlete</text>
+        <rect x="304" y="160" width="104" height="38" rx="4" fill="#f8e6c2"/><text x="356" y="184" fill="#7a5308">Building</text>
+        <rect x="304" y="206" width="104" height="38" rx="4" fill="#0f766e"/><text x="356" y="230" fill="#fffdf8" font-weight="700">Film ✓</text>
+        <rect x="304" y="252" width="104" height="38" rx="4" fill="#dbe7f2"/><text x="356" y="276" fill="#1d4b73">WrittenWork</text>
       </g>
-      <circle cx="60" cy="290" r="26" fill="#ff8fb8" opacity=".85"/><circle cx="116" cy="312" r="14" fill="#7aa2ff" opacity=".8"/><circle cx="210" cy="300" r="20" fill="#ffc56b" opacity=".8"/>
+      <circle cx="60" cy="290" r="26" fill="#d9532b" opacity=".85"/><circle cx="116" cy="312" r="14" fill="#2c6aa0" opacity=".8"/><circle cx="210" cy="300" r="20" fill="#d9532b" opacity=".8"/>
     </svg>
     <div>
-      <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>NLP Mini Project 1 · Phase 1</div>
+      <div class="eyebrow"><span class="no">01</span>NLP Mini Project 1 · Phase 1</div>
       <h1>What Is This Article About?</h1>
       <div class="pill">Classifying Wikipedia articles by type</div>
       <div style="font-size:19px;font-weight:600">Dina Al-Deek · Rand Hussein</div>
       <div style="color:var(--muted);margin-top:6px">Supervisor: Dr. Ahmad Fahel · Faculty of IT and AI</div>
-      <div class="arrows">◆ ◆ ◆ ◆ ◆</div>
+      <div class="arrows"><i></i><i></i><i></i></div>
     </div>
   </div>
   <aside class="n">Good morning. We are Dina and Rand. Our project takes the abstract of a Wikipedia article and decides what kind of thing it describes: a company, an artist, an athlete, a building, a film or a written work. We used corpus option 6, DBpedia-14.</aside>
@@ -130,7 +135,7 @@ aside.n{display:none}
 <!-- 2 -->
 <section>
   <div class="wrap">
-    <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>The problem</div>
+    <div class="eyebrow"><span class="no">02</span>The problem</div>
     <h2>One abstract in, one type out</h2>
     <p class="lead">Input: the first paragraph of a Wikipedia article. Output: one of six types. The type is never written as a label — it has to be read from <b>how the article is written</b>.</p>
     <div class="chips" style="margin-bottom:18px">
@@ -149,7 +154,7 @@ aside.n{display:none}
 <!-- 3 -->
 <section>
   <div class="wrap">
-    <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>The corpus</div>
+    <div class="eyebrow"><span class="no">03</span>The corpus</div>
     <h2>DBpedia-14, six of fourteen classes</h2>
     <div class="grid g4">
       <div class="card"><div class="k">Train</div><div class="v">18,000</div><div class="s">3,000 per class, sampled with seed 42</div></div>
@@ -169,7 +174,7 @@ aside.n{display:none}
 <!-- 4 -->
 <section>
   <div class="wrap">
-    <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>Our approach</div>
+    <div class="eyebrow"><span class="no">04</span>Our approach</div>
     <h2>The pipeline, step by step</h2>
     <div class="steps">
       <div class="step"><div class="n">1</div><div class="t">Raw abstract</div></div>
@@ -189,7 +194,7 @@ aside.n{display:none}
 <section>
   <div class="wrap grid g2" style="align-items:center;gap:28px">
     <div>
-      <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>Preprocessing</div>
+      <div class="eyebrow"><span class="no">05</span>Preprocessing</div>
       <h2>Cleaning the text</h2>
       <div class="chips" style="margin-bottom:12px">
         <span class="chip">lowercase</span><span class="chip">María → maria</span><span class="chip">no digits / punctuation</span>
@@ -210,7 +215,7 @@ aside.n{display:none}
 <!-- 6 -->
 <section>
   <div class="wrap">
-    <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>Corpus statistics · training set</div>
+    <div class="eyebrow"><span class="no">06</span>Corpus statistics · training set</div>
     <h2>What preprocessing changed</h2>
     <div class="grid g3">
       <div class="card"><div class="k">Tokens</div><div class="v">857K → 529K</div><div class="s">38% fewer — almost all of it stop words</div></div>
@@ -228,7 +233,7 @@ aside.n{display:none}
 <!-- 7 -->
 <section>
   <div class="wrap">
-    <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>N-gram analysis</div>
+    <div class="eyebrow"><span class="no">07</span>N-gram analysis</div>
     <h2>Phrases that mark each class</h2>
     <table>
       <tr><th>Class</th><th>Bigram</th><th>Trigram</th></tr>
@@ -250,7 +255,7 @@ aside.n{display:none}
 <!-- 8 -->
 <section>
   <div class="wrap">
-    <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>Language model · trigram with interpolation</div>
+    <div class="eyebrow"><span class="no">08</span>Language model · trigram with interpolation</div>
     <h2>Predicting the next word</h2>
     <div class="grid g2" style="gap:22px">
       <table>
@@ -277,7 +282,7 @@ aside.n{display:none}
 <!-- 9 -->
 <section>
   <div class="wrap">
-    <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>Bag of Words + classifier</div>
+    <div class="eyebrow"><span class="no">09</span>Bag of Words + classifier</div>
     <h2>Choosing the best model</h2>
     <p class="lead" style="margin-bottom:16px">Each abstract becomes a vector of <b>word counts</b>. With word pairs, “film directed” gets its own column.</p>
     <table>
@@ -296,7 +301,7 @@ aside.n{display:none}
 <section>
   <div class="wrap grid g2" style="gap:26px;align-items:center">
     <div>
-      <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>Final test · 30,000 unseen articles</div>
+      <div class="eyebrow"><span class="no">10</span>Final test · 30,000 unseen articles</div>
       <div class="big">96.73%</div>
       <p class="lead" style="margin-top:10px">accuracy. Validation was 96.72%, so the model generalises.</p>
       <div class="grid g3" style="gap:10px">
@@ -315,7 +320,7 @@ aside.n{display:none}
 <section>
   <div class="wrap grid g2" style="gap:24px;align-items:start">
     <div>
-      <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>Error analysis</div>
+      <div class="eyebrow"><span class="no">11</span>Error analysis</div>
       <h2>What the model learned — and where it fails</h2>
       <div class="card">
         <div class="k">Strongest words per class</div>
@@ -336,7 +341,7 @@ aside.n{display:none}
 <!-- 12 -->
 <section>
   <div class="wrap">
-    <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>Demo</div>
+    <div class="eyebrow"><span class="no">12</span>Demo</div>
     <h2>New text, live predictions</h2>
     <table>
       <tr><th>Text we typed</th><th>Model says</th></tr>
@@ -354,7 +359,7 @@ aside.n{display:none}
 <!-- 13 -->
 <section>
   <div class="wrap">
-    <div class="eyebrow"><i><b></b><b></b><b></b><b></b></i>Conclusion</div>
+    <div class="eyebrow"><span class="no">13</span>Conclusion</div>
     <h2>What we take away</h2>
     <div class="grid g3">
       <div class="card"><div class="v" style="color:var(--cyan)">96.73%</div><div class="s">on 30,000 unseen Wikipedia articles with a classical pipeline</div></div>
@@ -369,13 +374,15 @@ aside.n{display:none}
 </div>
 
 <nav id="dots"></nav>
+<div id="prog"></div>
+<div id="brand">DBpedia-14 · NLP Mini Project 1 · Al-Deek &amp; Hussein</div>
 <div id="notes"><div class="k">SPEAKER NOTES</div><div id="ntext"></div></div>
 <div id="nav">
   <button id="prev" aria-label="Previous slide">←</button>
   <span id="count">1 / 13</span>
   <button id="next" aria-label="Next slide">→</button>
-  <button id="nbtn">Notes</button>
-  <span class="hint">← → keys · N for notes</span>
+  <button id="nbtn" title="Speaker notes (N)">Notes</button>
+  
 </div>
 
 <script>
@@ -388,6 +395,7 @@ function go(i) { cur = Math.max(0, Math.min(slides.length - 1, i)); slides[cur].
 function update() {
   document.getElementById('count').textContent = (cur + 1) + ' / ' + slides.length;
   [...dots.children].forEach((d, i) => d.classList.toggle('on', i === cur));
+  document.getElementById('prog').style.width = ((cur + 1) / slides.length * 100) + '%';
   const n = slides[cur].querySelector('aside.n');
   document.getElementById('ntext').textContent = n ? n.textContent : '';
 }
@@ -413,8 +421,8 @@ cm.insertAdjacentHTML('beforeend', '<div></div>' + C.map(c => `<div class="h">${
 M.forEach((row, i) => {
   cm.insertAdjacentHTML('beforeend', `<div class="h rh">${C[i]}</div>`);
   row.forEach((v, j) => {
-    const bg = i === j ? `rgba(94,224,208,${.25 + .6 * v / 5000})` : (v >= 50 ? `rgba(255,107,129,${.25 + Math.min(v, 150) / 220})` : 'rgba(44,67,134,.35)');
-    cm.insertAdjacentHTML('beforeend', `<div style="background:${bg};${i === j ? 'font-weight:600;color:#06222a' : ''}">${v.toLocaleString()}</div>`);
+    const bg = i === j ? `rgba(15,118,110,${.55 + .4 * v / 5000})` : (v >= 50 ? `rgba(217,83,43,${.2 + Math.min(v, 150) / 260})` : '#f1ebdf');
+    cm.insertAdjacentHTML('beforeend', `<div style="background:${bg};${i === j ? 'font-weight:600;color:#fff' : ''}">${v.toLocaleString()}</div>`);
   });
 });
 
